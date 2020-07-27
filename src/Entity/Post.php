@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\PostRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
@@ -31,8 +30,6 @@ class Post
      * @ORM\Column(type="integer")
      */
     private $Poids;
-
-
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -99,7 +96,6 @@ class Post
 
         return $this;
     }
-
 
     public function getAuteurNom(): ?string
     {
