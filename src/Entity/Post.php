@@ -21,6 +21,7 @@ class Post
      */
     private $id;
 
+    
     /**
      * @ORM\Column(type="integer")
      */
@@ -52,6 +53,22 @@ class Post
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post")
+     */
+    private $comments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Poisson::class, inversedBy="posts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $poisson;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -128,6 +145,49 @@ class Post
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getPost() === $this) {
+                $comment->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPoisson(): ?Poisson
+    {
+        return $this->poisson;
+    }
+
+    public function setPoisson(?Poisson $poisson): self
+    {
+        $this->poisson = $poisson;
 
         return $this;
     }
