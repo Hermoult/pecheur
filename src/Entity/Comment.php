@@ -2,11 +2,24 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CommentRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
+ * @ApiResource(
+ *      attributes={
+ *          "order"={"createdAt":"DESC"}
+ *      },
+ *      normalizationContext={"groups"={"read:commentaire"}},
+ *      collectionOperations={"get", "post"},
+ *      itemOperations={"get"}
+ *  )
+ *  @ApiFilter(SearchFilter::class,
+ *      properties={"post": "exact"}
+ *  )
  */
 class Comment
 {

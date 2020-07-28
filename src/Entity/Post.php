@@ -9,7 +9,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
- * @ApiResource
+ * @ApiResource(
+ *      normalizationContext={"groups"={"read:post"}},
+ *      collectionOperations={"get", "post"},
+ *      itemOperations={"get"}
+ * )
  */
 class Post
 {
