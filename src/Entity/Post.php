@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -21,32 +22,38 @@ class Post
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("read:post")
      */
     private $id;
 
     
-    /**
+    /**sy
      * @ORM\Column(type="integer")
+     * @Groups("read:post")
      */
-    private $Taille;
+    private $taille;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("read:post")
      */
     private $Poids;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read:post")
      */
     private $auteurNom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read:post")
      */
     private $auteurPrenom;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("read:post")
      */
     private $histoire;
 
@@ -57,6 +64,7 @@ class Post
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post")
+     * @Groups("read:post")
      */
     private $comments;
 
@@ -79,12 +87,12 @@ class Post
 
     public function getTaille(): ?int
     {
-        return $this->Taille;
+        return $this->taille;
     }
 
-    public function setTaille(int $Taille): self
+    public function setTaille(int $taille): self
     {
-        $this->Taille = $Taille;
+        $this->taille = $taille;
 
         return $this;
     }
