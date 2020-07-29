@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Repository\PostRepository;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -27,7 +28,7 @@ class Post
     private $id;
 
     
-    /**sy
+    /**
      * @ORM\Column(type="integer")
      * @Groups("read:post")
      */
@@ -37,7 +38,7 @@ class Post
      * @ORM\Column(type="integer")
      * @Groups("read:post")
      */
-    private $Poids;
+    private $poids;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -79,7 +80,6 @@ class Post
         $this->comments = new ArrayCollection();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -99,12 +99,12 @@ class Post
 
     public function getPoids(): ?int
     {
-        return $this->Poids;
+        return $this->poids;
     }
 
-    public function setPoids(int $Poids): self
+    public function setPoids(int $poids): self
     {
-        $this->Poids = $Poids;
+        $this->poids = $poids;
 
         return $this;
     }
@@ -187,7 +187,6 @@ class Post
 
         return $this;
     }
-
     public function getPoisson(): ?Poisson
     {
         return $this->poisson;
