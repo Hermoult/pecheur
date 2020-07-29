@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommentRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
@@ -28,21 +29,25 @@ class Comment
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("read:commentaire")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read:commentaire")
      */
     private $auteurNom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read:commentaire")
      */
     private $auteurPrenom;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("read:commentaire")
      */
     private $contenu;
 
@@ -53,6 +58,7 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="comments")
+     * @Groups("read:commentaire")
      */
     private $post;
 
